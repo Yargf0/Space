@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
+  m_Name: Canon
+  m_EditorClassIdentifier: 
+  Name: Canon
+  Damage: 3
+  RateOfFire: 3
+  RadiusOfFire: 10
+  BulletExistence: 3
+  BulletSpeed: 300
+  Bullet: {fileID: 4952842104891237032, guid: 7ec104a80f6ae874386b9214615df3d5, type: 3}
