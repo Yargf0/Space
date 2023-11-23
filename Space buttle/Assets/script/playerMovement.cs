@@ -7,6 +7,7 @@ public class playerMovement : ShipBasic
     private Rigidbody2D rb2D;
     public void Start()
     {
+        player = true;
         rb2D = gameObject.GetComponent<Rigidbody2D>();
     }
     public void FixedUpdate()

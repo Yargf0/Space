@@ -6,7 +6,7 @@ public class WheaponBasic : MonoBehaviour
 {
     public Wheapon wheapon;
     private bool reloadNow;
-    [SerializeField] private int rotateInt;
+    //[SerializeField] private int rotateInt;
     [SerializeField] private GameObject spawnPpoint;
 
     private IEnumerator Reload(float time)
@@ -31,6 +31,6 @@ public class WheaponBasic : MonoBehaviour
     {
         Vector3 diference = position - transform.position;
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotateZ + rotateInt);
+        transform.rotation = Quaternion.Euler(0f, 0f, rotateZ + -90);
     }
 }

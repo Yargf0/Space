@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShipBasic : MonoBehaviour
 {
     public Ship ship;
+    public bool player=false;
     public void Damage(float damage)
     {
         ship.Hp -= damage;
