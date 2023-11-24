@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float Damage;
     public float BulletSpeed;
+    public bool PlayerBullet;
     private void Start()
     {
         gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * BulletSpeed);
@@ -18,5 +19,16 @@ public class Bullet : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent <ShipBasic>(out ShipBasic ship))
+        {
+            if (ship.player != PlayerBullet)
+            {
+                ship.Damage(Damage);
+                Destroy(gameObject);
+            }
+        }
     }
 }

@@ -6,10 +6,15 @@ public class ShipBasic : MonoBehaviour
 {
     public Ship ship;
     public bool player=false;
+    private float Hp;
+    private void Awake()
+    {
+        Hp =  ship.Hp;
+    }
     public void Damage(float damage)
     {
-        ship.Hp -= damage;
-        if (ship.Hp < 0)
+        Hp -= damage;
+        if (Hp < 0)
         {
             Destroy();
         }

@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483ff326242724240ba08fa8fe76671a, type: 3}
-  m_Name: Carier
+  m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
+  m_Name: Canon
   m_EditorClassIdentifier: 
-  Name: Carier
-  Hp: 10
-  Speed: 200
-  RotationSpeed: 60
+  name: Canon
+  damage: 3
+  rateOfFire: 3
+  radiusOfFire: 10
+  bulletExistence: 3
+  bulletSpeed: 300
+  bullet: {fileID: 4952842104891237032, guid: 7ec104a80f6ae874386b9214615df3d5, type: 3}

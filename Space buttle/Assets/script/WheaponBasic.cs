@@ -6,6 +6,7 @@ public class WheaponBasic : MonoBehaviour
 {
     public Wheapon wheapon;
     private bool reloadNow;
+    public bool playerWheapon=false;
     //[SerializeField] private int rotateInt;
     [SerializeField] private GameObject spawnPpoint;
 
@@ -24,6 +25,7 @@ public class WheaponBasic : MonoBehaviour
             bullet.StartDestruction(wheapon.BulletExistence);
             bullet.Damage = wheapon.Damage;
             bullet.BulletSpeed = wheapon.BulletSpeed;
+            bullet.PlayerBullet = playerWheapon;
             StartCoroutine(Reload(wheapon.RateOfFire));           
         }
     }

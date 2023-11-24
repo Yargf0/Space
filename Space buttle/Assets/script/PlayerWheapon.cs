@@ -5,6 +5,10 @@ using UnityEngine.UIElements;
 
 public class PlayerWheapon : WheaponBasic
 {
+    private void Start()
+    {
+        playerWheapon = true;
+    }
     private void FixedUpdate()
     {
         Rotate(Camera.main.ScreenToWorldPoint(Input.mousePosition));
