@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483ff326242724240ba08fa8fe76671a, type: 3}
-  m_Name: Carier
+  m_Name: Frigate
   m_EditorClassIdentifier: 
-  name: Carier
-  hp: 30
-  speed: 150
-  rotationSpeed: 50
+  name: 
+  hp: 120
+  speed: 15
+  rotationSpeed: 5

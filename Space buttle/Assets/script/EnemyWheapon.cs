@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class EnemyWheapon : WheaponBasic
 {
-
     private void Update()
     {
         Collider2D[] colliderAray = Physics2D.OverlapCircleAll(gameObject.transform.position, wheapon.RadiusOfFire);
         foreach (Collider2D collider2D in colliderAray)
         {
-            if (collider2D.TryGetComponent<playerMovement>(out playerMovement ship))
+            if (collider2D.TryGetComponent<ShipBasic>(out ShipBasic ship))
             {
                 if (ship.player==true)
                 {
