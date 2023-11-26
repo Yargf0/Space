@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
-  m_Name: MachineGun
+  m_Name: Canon
   m_EditorClassIdentifier: 
-  name: Machine Gun
-  damage: 0.2
-  rateOfFire: 0.2
-  radiusOfFire: 7
-  bulletExistence: 2
+  name: Canon
+  damage: 3
+  rotationSpeed: 2
+  rateOfFire: 3
+  radiusOfFire: 10
+  bulletExistence: 3
   bulletSpeed: 300
-  bullet: {fileID: 4952842104891237032, guid: eee3f8c2b9c755f40a25fdc16e080e4c, type: 3}
+  bullet: {fileID: 4952842104891237032, guid: 7ec104a80f6ae874386b9214615df3d5, type: 3}

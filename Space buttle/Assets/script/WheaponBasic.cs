@@ -33,6 +33,6 @@ public class WheaponBasic : MonoBehaviour
     {
         Vector3 diference = position - transform.position;
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotateZ + -90);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, (rotateZ + -90)), wheapon.RotationSpeed * Time.deltaTime);
     }
 }

@@ -5,29 +5,23 @@ using UnityEngine.LowLevel;
 
 public class EnemyStateManager : MonoBehaviour
 {
-    public static EnemyStateManager Instance { get; private set; }
-    public PatrulState patrulState = new();
-    private EnemyBaseStat currentState;
-    private void Awake()
-    {
-        Instance = this;
-     
-    }
-    public void SetState(EnemyBaseStat state)
+    [SerializeField] public Dictionary<string, System.Action> stateDictionary;
+    private System.Action currentState;
+
+    public void SetState(string state)
     {
         Debug.Log("New state = " + state);
 
-        currentState = state;
-        currentState.EnterState(this);
+        if (stateDictionary.ContainsKey(state))
+        {
+            currentState = stateDictionary[state];
+        }
+        
     }
-    public EnemyBaseStat GetCurrentState()
+    public System.Action GetCurrentState()
     {
         if (currentState != null)
             return currentState;
         return null;
-    }
-    private void FixedUpdate()
-    {
-        currentState.StateUpdate();
     }
 }

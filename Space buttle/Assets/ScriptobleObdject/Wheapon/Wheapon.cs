@@ -7,6 +7,7 @@ public class Wheapon : ScriptableObject
 {
     [SerializeField] private string name;
     [SerializeField] private float damage;
+    [SerializeField] private float rotationSpeed;
     [SerializeField] private float rateOfFire;
     [SerializeField] private float radiusOfFire;
     [SerializeField] private float bulletExistence;
@@ -25,6 +26,13 @@ public class Wheapon : ScriptableObject
         {
             return damage;
         }
+    }
+    public float RotationSpeed
+    {          
+        get         
+        { 
+            return rotationSpeed; 
+        } 
     }
     public float RateOfFire
     {

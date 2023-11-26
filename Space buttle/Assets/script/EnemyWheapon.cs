@@ -6,18 +6,14 @@ public class EnemyWheapon : WheaponBasic
 {
     private void Update()
     {
-        Collider2D[] colliderAray = Physics2D.OverlapCircleAll(gameObject.transform.position, wheapon.RadiusOfFire);
-        foreach (Collider2D collider2D in colliderAray)
+
+        if(Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) < wheapon.RadiusOfFire)   
         {
-            if (collider2D.TryGetComponent<ShipBasic>(out ShipBasic ship))
-            {
-                if (ship.player==true)
-                {
-                    Rotate(collider2D.transform.position);
-                    Shoot();
-                }
-            }
+            Rotate(playerMovement.Instance.GetPostion());
+            Shoot();
         }
+                    
+                
     }
 
 }

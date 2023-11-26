@@ -2,59 +2,121 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 using Vector3 = UnityEngine.Vector3;
 
-public class Enemyai : MonoBehaviour
+public class EnemyAi : MonoBehaviour
 {
-    [SerializeField] private int radiusOfDetection;
-    [SerializeField] private int attackRadius;
-    [SerializeField] private int rotationSpeed;
+
+    [SerializeField] private Dictionary<string, System.Action> stateDictionary = new();
+    private string currentState;
+    [SerializeField] private Enemy enemy;
+
     private Rigidbody2D rb2D;
+
+    private Vector3 randomPosition;
+
     public void Start()
     {
+        randomPosition = transform.position;
         rb2D = gameObject.GetComponent<Rigidbody2D>();
+        stateDictionary.Add("Patrule", Patrule);
+        stateDictionary.Add("Chase", Chase);
+        stateDictionary.Add("Fight", RotateAroundPlayer);
     }
-    public Vector3 GetCoordinateToMove(Vector3 vector)
+    public void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) < enemy.RadiusOfDetection)
+        {
+            if (Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) <= enemy.AttackRadius-1f)
+            {
+                SetState("Fight");
+            }
+            else
+            {
+                SetState("Chase");
+            }                        
+        }
+        else
+        {
+            SetState("Patrule");
+        }
+    }
+    public void SetState(string state)
+    {
+        if (stateDictionary.ContainsKey(state))
+        {
+            currentState = state;
+            stateDictionary[currentState]();
+        }
+        
+    }
+    public string GetCurrentState()
+    {
+        if (currentState != null)
+            return currentState;
+        return null;
+    }
+
+    public void Chase()
+    {
+        Rotate(playerMovement.Instance.GetPostion());
+        rb2D.AddForce(gameObject.transform.up * enemy.Speed * Time.deltaTime, ForceMode2D.Force);
+    }
+
+    public void Patrule()
+    {
+        if (Vector3.Distance(transform.position, randomPosition) > 4f)
+        {
+            MoveTo(randomPosition);
+        }
+        else
+        {
+            randomPosition = RandomPosition();
+        }
+    }
+
+    public void RotateAroundPlayer()
+    {
+        MoveTo(GetCoordinateToMoveInCircle(playerMovement.Instance.GetPostion()));
+        
+    }
+
+    public void MoveTo(Vector3 position)
+    {
+        Rotate(position);
+        rb2D.AddForce(gameObject.transform.up * enemy.Speed * Time.deltaTime, ForceMode2D.Force);             
+    }
+
+    public Vector3 GetCoordinateToMoveInCircle(Vector3 vector)
     {
         float x1 = vector.x;
         float x2 = gameObject.transform.position.x;
         float y1 = vector.y;
         float y2 = gameObject.transform.position.y;
-        float a = 2 * attackRadius * Mathf.Sin(0.5f * 15);
-        //Mathf.Sqrt(Mathf.Pow(x2-x1, 2)+(Mathf.Pow( y2- y1, 2)));
-        float x3 = x1 + attackRadius * Mathf.Cos(15) + attackRadius * Mathf.Sin(15);
-        float y3 = y1 + attackRadius * Mathf.Cos(15) - attackRadius * Mathf.Sin(15);
+        float a = 2 * (enemy.AttackRadius - 2f) * Mathf.Sin(0.5f * 5);
+        float x3 = x1 + (enemy.AttackRadius - 2f) * Mathf.Cos(15) + (enemy.AttackRadius - 2f) * Mathf.Sin(15);
+        float y3 = y1 + (enemy.AttackRadius - 2f) * Mathf.Cos(15) - (enemy.AttackRadius - 2f) * Mathf.Sin(15);
         return new Vector3(x3, y3, 0);
-
-
-    }
-    private void FixedUpdate()
-    {
-        Collider2D[] colliderAray = Physics2D.OverlapCircleAll(gameObject.transform.position, radiusOfDetection);
-        foreach (Collider2D collider2D in colliderAray)
-        {
-            if (collider2D.TryGetComponent<ShipBasic>(out ShipBasic ship))
-            {
-                if (ship.player == true)
-                {                    
-                    if((gameObject.transform.position - collider2D.transform.position).magnitude > attackRadius)
-                    {
-                        Rotate(collider2D.transform.position);
-                        rb2D.AddForce(gameObject.transform.up * 130 * Time.deltaTime, ForceMode2D.Force);
-                    }
-                    else
-                    {
-                        Rotate(GetCoordinateToMove(collider2D.transform.position));
-                        rb2D.AddForce(gameObject.transform.up * 70 * Time.deltaTime, ForceMode2D.Force);
-                    }
-                }
-            }
-        }
     }
     public void Rotate(Vector3 position)
     {
         Vector3 diference = position - transform.position;
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, (rotateZ + -90));
+        transform.rotation = Quaternion.Euler(0f, 0f, rotateZ + -90);
     }
+
+
+    private Vector3 GetRandomDirection()
+    {
+        return new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+    }
+
+    private Vector3 RandomPosition()
+    {
+        return transform.position + GetRandomDirection() * Random.Range(10f, 170f);
+    }
+
+
+
 }
