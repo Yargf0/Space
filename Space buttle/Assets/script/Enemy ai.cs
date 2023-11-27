@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using Vector3 = UnityEngine.Vector3;
 
@@ -15,6 +13,7 @@ public class EnemyAi : MonoBehaviour
     private Rigidbody2D rb2D;
 
     private Vector3 randomPosition;
+
 
     public void Start()
     {
@@ -66,20 +65,12 @@ public class EnemyAi : MonoBehaviour
 
     public void Patrule()
     {
-        if (Vector3.Distance(transform.position, randomPosition) > 4f)
-        {
-            MoveTo(randomPosition);
-        }
-        else
-        {
-            randomPosition = RandomPosition();
-        }
+        RotateInCircle();
     }
 
     public void RotateAroundPlayer()
     {
-        MoveTo(GetCoordinateToMoveInCircle(playerMovement.Instance.GetPostion()));
-        
+        RotatePlayerAroundObject();
     }
 
     public void MoveTo(Vector3 position)
@@ -117,6 +108,44 @@ public class EnemyAi : MonoBehaviour
         return transform.position + GetRandomDirection() * Random.Range(10f, 170f);
     }
 
+    void RotateInCircle()
+    {
+        // Вычисляем угол для вращения по окружности
+        float angle = Time.time * 5f;
+
+        // Вычисляем новые координаты объекта на окружности
+        float x = Mathf.Cos(angle) * 5f;
+        float y = Mathf.Sin(angle) * 5f;
+
+        // Создаем новый вектор позиции
+        Vector3 newPosition = new Vector3(x, y, 0f);
+        Rotate(newPosition);
+
+        // Применяем AddForce для движения объекта к новой позиции
+        Vector2 force = (newPosition - transform.position).normalized * 5;
+        rb2D.velocity = force; // Заменим AddForce на прямое задание скорости
+
+        // Необходимо также обнулить угловую скорость, чтобы объект не вращался вокруг своей оси Z
+        rb2D.angularVelocity = 0f;
+    }
+    private void RotatePlayerAroundObject()
+    {
+        Vector3 directionToTarget = playerMovement.Instance.GetPostion() - transform.position;
+
+        // Вычисляем расстояние до целевого объекта
+        float distanceToTarget = directionToTarget.magnitude;
+
+        Vector3 normalizedDirection = directionToTarget.normalized;
+
+        // Вычисляем вектор, перпендикулярный направлению к целевому объекту
+        Vector3 perpendicularDirection = Vector3.Cross(normalizedDirection, Vector3.up);
+
+        // Применяем AddForce для движения объекта по кругу
+        rb2D.AddForce(perpendicularDirection * enemy.Speed);
+
+        // Ограничиваем максимальную скорость, чтобы избежать проблем с физикой
+        rb2D.velocity = Vector3.ClampMagnitude(rb2D.velocity, enemy.Speed);
+    }
 
 
 }
