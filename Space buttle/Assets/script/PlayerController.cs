@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerMovement : ShipBasic
+public class PlayerController : ShipBasic
 {
     private Rigidbody2D rb2D;
-    public static playerMovement Instance { get; private set; }
+    public static PlayerController Instance { get; private set; }
     public void Awake()
     {
         base.Awake();

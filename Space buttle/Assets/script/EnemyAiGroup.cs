@@ -95,7 +95,7 @@ public class EnemyAiGroup : MonoBehaviour
     {
         while (true)
         {            
-            if (Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) < enemy.RadiusOfDetection)
+            if (Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) < enemy.RadiusOfDetection)
             {
                 SetState("Chase");
             }

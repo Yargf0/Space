@@ -25,11 +25,12 @@ public class EnemyAi : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) < enemy.RadiusOfDetection)
+        if (Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) < enemy.RadiusOfDetection)
         {
-            if (Vector3.Distance(transform.position, playerMovement.Instance.GetPostion()) <= enemy.AttackRadius-1f)
+            if (Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) <= enemy.AttackRadius)
             {
                 SetState("Fight");
+                Debug.Log("Fight");
             }
             else
             {
@@ -59,7 +60,7 @@ public class EnemyAi : MonoBehaviour
 
     public void Chase()
     {
-        Rotate(playerMovement.Instance.GetPostion());
+        Rotate(PlayerController.Instance.GetPostion());
         rb2D.AddForce(gameObject.transform.up * enemy.Speed * Time.deltaTime, ForceMode2D.Force);
     }
 
@@ -130,19 +131,24 @@ public class EnemyAi : MonoBehaviour
     }
     private void RotatePlayerAroundObject()
     {
-        Vector3 directionToTarget = playerMovement.Instance.GetPostion() - transform.position;
+        Vector3 directionToTarget = PlayerController.Instance.GetPostion() - transform.position;
 
-        // Вычисляем расстояние до целевого объекта
-        float distanceToTarget = directionToTarget.magnitude;
 
         Vector3 normalizedDirection = directionToTarget.normalized;
 
         // Вычисляем вектор, перпендикулярный направлению к целевому объекту
         Vector3 perpendicularDirection = Vector3.Cross(normalizedDirection, Vector3.up);
-
+      
+        Debug.Log("perpendicularDirection = " + perpendicularDirection);
         // Применяем AddForce для движения объекта по кругу
+        if (perpendicularDirection.z<0)
+        {
+            perpendicularDirection = -perpendicularDirection;
+        }
+
         rb2D.AddForce(perpendicularDirection * enemy.Speed);
 
+        Rotate(perpendicularDirection);
         // Ограничиваем максимальную скорость, чтобы избежать проблем с физикой
         rb2D.velocity = Vector3.ClampMagnitude(rb2D.velocity, enemy.Speed);
     }
