@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : ShipBasic
 {
@@ -37,5 +38,7 @@ public class PlayerController : ShipBasic
     {
         return rb2D.transform.position;
     }
+
+
 
 }

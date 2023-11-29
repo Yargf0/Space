@@ -111,13 +111,13 @@ public class EnemyAi : MonoBehaviour
 
     void RotateInCircle()
     {
-        // Вычисляем угол для вращения по окружности
+        // Вычисляем угол для вращения по окружностиё
         float angle = Time.time * 5f;
 
         // Вычисляем новые координаты объекта на окружности
         float x = Mathf.Cos(angle) * 5f;
         float y = Mathf.Sin(angle) * 5f;
-
+        
         // Создаем новый вектор позиции
         Vector3 newPosition = new Vector3(x, y, 0f);
         Rotate(newPosition);
@@ -139,7 +139,6 @@ public class EnemyAi : MonoBehaviour
         // Вычисляем вектор, перпендикулярный направлению к целевому объекту
         Vector3 perpendicularDirection = Vector3.Cross(normalizedDirection, Vector3.up);
       
-        Debug.Log("perpendicularDirection = " + perpendicularDirection);
         // Применяем AddForce для движения объекта по кругу
         if (perpendicularDirection.z<0)
         {
@@ -152,6 +151,19 @@ public class EnemyAi : MonoBehaviour
         // Ограничиваем максимальную скорость, чтобы избежать проблем с физикой
         rb2D.velocity = Vector3.ClampMagnitude(rb2D.velocity, enemy.Speed);
     }
+    private void R()
+    {
+        Vector3 force = transform.right * enemy.Speed * rb2D.mass;
 
+        // Применяем силу к объекту
+        rb2D.AddForce(force);
 
+        // Ограничиваем движение объекта по радиусу
+        Vector3 center = transform.position;
+        Vector3 currentPosition = rb2D.position;
+        Vector3 direction = currentPosition - center;
+        direction.Normalize();
+        Vector3 targetPosition = center + direction * 10;
+        rb2D.MovePosition(targetPosition);
+    }
 }
