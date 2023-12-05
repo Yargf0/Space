@@ -25,9 +25,11 @@ public class EnemyAi : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) < enemy.RadiusOfDetection)
+        if (PlayerController.Instance == null)
+            return;
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < enemy.RadiusOfDetection)
         {
-            if (Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) <= enemy.AttackRadius)
+            if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) <= enemy.AttackRadius)
             {
                 SetState("Fight");
                 Debug.Log("Fight");
@@ -60,7 +62,7 @@ public class EnemyAi : MonoBehaviour
 
     public void Chase()
     {
-        Rotate(PlayerController.Instance.GetPostion());
+        Rotate(PlayerController.Instance.transform.position);
         rb2D.AddForce(gameObject.transform.up * enemy.Speed * Time.deltaTime, ForceMode2D.Force);
     }
 
@@ -131,7 +133,7 @@ public class EnemyAi : MonoBehaviour
     }
     private void RotatePlayerAroundObject()
     {
-        Vector3 directionToTarget = PlayerController.Instance.GetPostion() - transform.position;
+        Vector3 directionToTarget = PlayerController.Instance.transform.position - transform.position;
 
 
         Vector3 normalizedDirection = directionToTarget.normalized;

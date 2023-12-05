@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : ShipBasic
 {
-    private Rigidbody2D rb2D;
     public static PlayerController Instance { get; private set; }
+    private Rigidbody2D rb2D;
     public void Awake()
     {
         base.Awake();
@@ -34,11 +34,5 @@ public class PlayerController : ShipBasic
             rb2D.MoveRotation(rb2D.rotation - ship.RotationSpeed * Time.fixedDeltaTime);
         }
     }
-    public Vector3 GetPostion()
-    {
-        return rb2D.transform.position;
-    }
-
-
 
 }

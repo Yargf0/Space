@@ -6,9 +6,11 @@ public class EnemyWheapon : WheaponBasic
 {
     private void Update()
     {
-        if(Vector3.Distance(transform.position, PlayerController.Instance.GetPostion()) < wheapon.RadiusOfFire)   
+        if (PlayerController.Instance == null)
+            return;
+        if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < wheapon.RadiusOfFire)   
         {
-            Rotate(PlayerController.Instance.GetPostion());
+            Rotate(PlayerController.Instance.transform.position);
             Shoot();
         }                                   
     }
