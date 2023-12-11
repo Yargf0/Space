@@ -8,9 +8,7 @@ public class Enemy : ScriptableObject
     [SerializeField] private string name;
     [SerializeField] private int radiusOfDetection;
     [SerializeField] private int attackRadius;
-    [SerializeField] private int rotationSpeed;
-    [SerializeField] private int speed;
-
+    [SerializeField] private List<Wheapon> wheapons;
     public string Name
     {
         get
@@ -25,25 +23,18 @@ public class Enemy : ScriptableObject
             return radiusOfDetection;
         }
     }
-    public int AttackRadius
+    public float AttackRadius
     {
         get
         {
-            return attackRadius;
+            float i = 0;
+            foreach (var wheapon in wheapons)
+            {
+                if (wheapon.RadiusOfFire > i)
+                    i = wheapon.RadiusOfFire;
+            }
+            return i;
         }
     }
-    public int RotationSpeed
-    {
-        get
-        {
-            return rotationSpeed;
-        }
-    }
-    public int Speed
-    {
-        get
-        {
-            return speed;
-        }
-    }
+
 }
