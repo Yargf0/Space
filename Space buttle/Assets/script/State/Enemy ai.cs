@@ -3,7 +3,7 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using Vector3 = UnityEngine.Vector3;
 
-public class EnemyAi : MonoBehaviour
+public class EnemyAi : EnemyBasic
 {
 
     private Dictionary<string, BaseState> stateDictionary = new();
@@ -11,13 +11,8 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private BaseState Patrule;
     [SerializeField] private BaseState Chase;
     [SerializeField] private BaseState Fight;
-    [SerializeField] private Enemy enemy;
-    [SerializeField] private Ship ship;
 
     private string currentState;
-
-    private Vector3 randomPosition;
-
 
     public void Start()
     {       
@@ -26,7 +21,7 @@ public class EnemyAi : MonoBehaviour
         stateDictionary.Add("Fight", Fight);
         foreach (BaseState baseState in stateDictionary.Values)
         {
-            baseState.Set(enemy, ship, gameObject);
+            baseState.Set(enemy, gameObject);
         }
     }
     public void FixedUpdate()
@@ -55,8 +50,7 @@ public class EnemyAi : MonoBehaviour
         {
             currentState = state;
             stateDictionary[currentState].Do();
-        }
-        
+        }       
     }
     public string GetCurrentState()
     {

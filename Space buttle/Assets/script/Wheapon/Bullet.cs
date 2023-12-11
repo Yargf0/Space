@@ -24,9 +24,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.TryGetComponent <ShipBasic>(out ShipBasic ship))
         {
-            if (ship.player != PlayerBullet)
+            if (ship.Player != PlayerBullet)
             {
-                ship.Damage(Damage);
+                ship.ApplyDamage(Damage);
                 Destroy(gameObject);
             }
         }

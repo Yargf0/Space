@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObject/Enemy")]
-public class Enemy : ScriptableObject
+public class Enemy : Ship
 {
-    [SerializeField] private string name;
     [SerializeField] private int radiusOfDetection;
     [SerializeField] private int attackRadius;
     [SerializeField] private List<Wheapon> wheapons;
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-    }
+
     public int RadiusOfDetection
     {
         get

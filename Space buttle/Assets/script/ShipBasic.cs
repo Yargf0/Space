@@ -1,23 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShipBasic : MonoBehaviour
 {
-    public Ship ship;
-    public bool player=false;
-    private float Hp;
-    [SerializeField] Image HpSprite;
-    public void Awake()
-    {        
-        Hp =  ship.Hp;
+    [SerializeField] protected Ship Ship;
+    public bool Player=false;
+    [HideInInspector]
+    public float Hp;
+    [SerializeField] protected Image hpSprite;
+    public virtual void Awake()
+    {       
+        Hp =  Ship.Hp;
     }
-    public void Damage(float damage)
+    public virtual void ApplyDamage(float damage)
     {
-        Debug.Log(ship.Name);
         Hp -= damage;
-        HpSprite.fillAmount = (Hp / ship.Hp);
+        if (hpSprite!=null)
+        {
+            hpSprite.fillAmount = (Hp / Ship.Hp);
+        }
+            
         if (Hp < 0)
         {
             Destroy();
@@ -27,7 +29,4 @@ public class ShipBasic : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
-
 }

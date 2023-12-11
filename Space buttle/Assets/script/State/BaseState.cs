@@ -8,9 +8,9 @@ public class BaseState : MonoBehaviour
     public Rigidbody2D rb2D;
     public GameObject me;
 
-    public void Set(Enemy enemy, Ship ship, GameObject gameObject )
+    public void Set(Enemy enemy, GameObject gameObject )
     {
-        Speed = ship.Speed;
+        Speed = enemy.Speed;
         AttackRadius = enemy.AttackRadius;
         me = gameObject;
         rb2D = me.GetComponent<Rigidbody2D>();
