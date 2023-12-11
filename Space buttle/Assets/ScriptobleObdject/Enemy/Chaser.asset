@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Chaser
   m_EditorClassIdentifier: 
   name: Chaser
+  hp: 5
+  speed: 150
+  rotationSpeed: 70
   radiusOfDetection: 10
   attackRadius: 5
-  rotationSpeed: 5
-  speed: 70
+  wheapons:
+  - {fileID: 11400000, guid: 75a51cc2216f3e84eab43b08f9b4d260, type: 2}

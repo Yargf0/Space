@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
-  m_Name: Canon
+  m_Name: Wheapon
   m_EditorClassIdentifier: 
-  name: Canon
-  damage: 4
-  rotationSpeed: 10
-  rateOfFire: 2
-  radiusOfFire: 10
-  bulletExistence: 3
-  bulletSpeed: 300
-  bullet: {fileID: 4952842104891237032, guid: 7ec104a80f6ae874386b9214615df3d5, type: 3}
+  name: 
+  damage: 0
+  rotationSpeed: 0
+  rateOfFire: 0
+  radiusOfFire: 0
+  bulletExistence: 0
+  bulletSpeed: 0
+  bullet: {fileID: 0}

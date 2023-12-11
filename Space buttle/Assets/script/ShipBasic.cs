@@ -8,16 +8,18 @@ public class ShipBasic : MonoBehaviour
     [HideInInspector]
     public float Hp;
     [SerializeField] protected Image hpSprite;
+    protected float maxHp;
     public virtual void Awake()
     {       
         Hp =  Ship.Hp;
+        maxHp = Hp;
     }
     public virtual void ApplyDamage(float damage)
     {
         Hp -= damage;
         if (hpSprite!=null)
         {
-            hpSprite.fillAmount = (Hp / Ship.Hp);
+            hpSprite.fillAmount = (Hp / maxHp);
         }
             
         if (Hp < 0)
