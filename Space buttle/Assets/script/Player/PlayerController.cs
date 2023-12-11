@@ -27,7 +27,6 @@ public class PlayerController : ShipBasic
         if (Input.GetKey("a"))  
         {
             rb2D.MoveRotation(rb2D.rotation+ Ship.RotationSpeed * Time.fixedDeltaTime);
-
         }
         if (Input.GetKey("d"))
         {

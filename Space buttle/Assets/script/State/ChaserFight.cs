@@ -14,7 +14,7 @@ public class ChaserFight : BaseState
         {
             perpendicularDirection = -perpendicularDirection;
         }
-
+        engineParticle.Play();
         rb2D.AddForce(perpendicularDirection * Speed);
         Rotate(perpendicularDirection);
 

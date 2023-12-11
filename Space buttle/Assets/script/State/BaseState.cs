@@ -3,27 +3,28 @@ using UnityEngine;
 
 public class BaseState : MonoBehaviour
 {
-    public float Speed;
-    public float AttackRadius;
-    public Rigidbody2D rb2D;
-    public GameObject me;
-
-    public void Set(Enemy enemy, GameObject gameObject )
+    [SerializeField] protected float Speed;
+    [SerializeField] protected float AttackRadius;
+    [SerializeField] protected Rigidbody2D rb2D;
+    [SerializeField] protected GameObject me;
+    [SerializeField] protected ParticleSystem engineParticle;
+    public void Set(Enemy enemy, GameObject gameObject, ParticleSystem engineParticle)
     {
         Speed = enemy.Speed;
         AttackRadius = enemy.AttackRadius;
         me = gameObject;
         rb2D = me.GetComponent<Rigidbody2D>();
+        this.engineParticle = engineParticle;
     }
     public virtual void Do()
     {
+        engineParticle.Play();
         Rotate(PlayerController.Instance.transform.position);
         rb2D.AddForce(me.transform.up * Speed * Time.deltaTime, ForceMode2D.Force);
     }
 
-
     public void MoveTo(Vector3 position)
-    {
+    {        
         Rotate(position);
         rb2D.AddForce(me.transform.up * Speed * Time.deltaTime, ForceMode2D.Force);
     }

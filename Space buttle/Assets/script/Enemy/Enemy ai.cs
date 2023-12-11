@@ -11,6 +11,8 @@ public class EnemyAi : EnemyBasic
     [SerializeField] private BaseState Patrule;
     [SerializeField] private BaseState Chase;
     [SerializeField] private BaseState Fight;
+    [SerializeField] private ParticleSystem engineParticle;
+    [SerializeField] private Rigidbody2D rb2D;
 
     private string currentState;
 
@@ -21,8 +23,10 @@ public class EnemyAi : EnemyBasic
         stateDictionary.Add("Fight", Fight);
         foreach (BaseState baseState in stateDictionary.Values)
         {
-            baseState.Set(enemy, gameObject);
+            baseState.Set(enemy, gameObject, engineParticle);
         }
+        rb2D = gameObject.GetComponent<Rigidbody2D>();
+        engineParticle.Pause();
     }
     public void FixedUpdate()
     {
@@ -43,6 +47,11 @@ public class EnemyAi : EnemyBasic
         {
             SetState("Patrule");
         }
+        if(rb2D.velocity.magnitude <= 0.8f)
+        {
+            engineParticle.Pause();
+        }
+
     }
     public void SetState(string state)
     {

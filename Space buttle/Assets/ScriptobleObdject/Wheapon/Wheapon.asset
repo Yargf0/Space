@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
   m_Name: Wheapon
   m_EditorClassIdentifier: 
-  name: 
-  damage: 0
-  rotationSpeed: 0
-  rateOfFire: 0
-  radiusOfFire: 0
-  bulletExistence: 0
-  bulletSpeed: 0
-  bullet: {fileID: 0}
+  name: Lol
+  damage: 100
+  rotationSpeed: 1000
+  rateOfFire: 0.01
+  radiusOfFire: 100
+  bulletExistence: 5
+  bulletSpeed: 1000
+  bullet: {fileID: 4952842104891237032, guid: eee3f8c2b9c755f40a25fdc16e080e4c, type: 3}
