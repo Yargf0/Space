@@ -7,28 +7,45 @@ public class WheaponBasic : MonoBehaviour
     [SerializeField] protected Wheapon wheapon;
     private bool reloadNow;
     [SerializeField] protected bool playerWheapon=false;
-    //[SerializeField] private int rotateInt;
-    [SerializeField] private GameObject spawnPpoint;
+    [SerializeField] private List<Transform> spawnPpoint;
 
+    public void Start()
+    {
+        spawnPpoint = GetChilds();
+    }
+    public List<Transform> GetChilds()
+    {
+        List<Transform> ret = new List<Transform>();
+        foreach (Transform child in gameObject.transform) ret.Add(child);
+        return ret;
+    }
     private IEnumerator Reload(float time)
     {
         reloadNow = true;
         yield return new WaitForSeconds(time);
         reloadNow = false;
     }
+
     public void Shoot()
     {
         if (reloadNow!=true)
-        {
-            GameObject spawned= Instantiate(wheapon.Bullet, spawnPpoint.transform.position, gameObject.transform.rotation);
-            if (spawned.GetComponent<Bullet>()!=null)
+        { 
+        
+            foreach (Transform barrol in spawnPpoint)
             {
-                Bullet bullet = spawned.GetComponent<Bullet>();
-                bullet.StartDestruction(wheapon.BulletExistence);
-                bullet.Damage = wheapon.Damage;
-                bullet.BulletSpeed = wheapon.BulletSpeed;
-                bullet.PlayerBullet = playerWheapon;
-            }           
+                GameObject spawned = Instantiate(wheapon.Bullet, barrol.transform.position, gameObject.transform.rotation);
+                if (spawned.GetComponent<Bullet>() != null)
+                {
+                    Debug.Log(wheapon.name);
+                    Bullet bullet = spawned.GetComponent<Bullet>();
+                    bullet.wheapon = wheapon;
+                    bullet.StartDestruction(wheapon.BulletExistence);
+                    bullet.PlayerBullet = playerWheapon;
+                    bullet.Activate();
+                }
+
+            }
+           
             StartCoroutine(Reload(wheapon.RateOfFire));           
         }
     }

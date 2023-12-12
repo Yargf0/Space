@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e02d2ef07cbfc19488eeadc86dafec97, type: 3}
-  m_Name: MachineGun
+  m_Name: RocketLayncher
   m_EditorClassIdentifier: 
-  name: Machine Gun
-  damage: 1
-  rotationSpeed: 90
-  rateOfFire: 0.2
-  radiusOfFire: 7
-  bulletExistence: 2
-  bulletSpeed: 900
-  bullet: {fileID: 4952842104891237032, guid: eee3f8c2b9c755f40a25fdc16e080e4c, type: 3}
+  name: Rocket Launcher
+  damage: 30
+  rotationSpeed: 3
+  rateOfFire: 16
+  radiusOfFire: 30
+  bulletExistence: 8
+  bulletSpeed: 400
+  bullet: {fileID: 560304726919358947, guid: 4a78444f13e503d47bd7e4c2993d08af, type: 3}

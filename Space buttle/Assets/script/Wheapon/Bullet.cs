@@ -4,29 +4,33 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float Damage;
-    public float BulletSpeed;
+    protected float damage;
+    protected float speed;
     public bool PlayerBullet;
-    private void Start()
+    public Wheapon wheapon;
+    public virtual void Activate()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * BulletSpeed);
+        damage = wheapon.Damage;
+        speed = wheapon.BulletSpeed;
+        gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * speed);
+
     }
-    public void StartDestruction(float time)
+    public virtual void StartDestruction(float time)
     {
-        StartCoroutine(Destroy(time));
+        StartCoroutine(WhaitDestroy(time));
     }
-    private IEnumerator Destroy(float time)
+    public virtual IEnumerator WhaitDestroy(float time)
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent <ShipBasic>(out ShipBasic ship))
         {
             if (ship.Player != PlayerBullet)
             {
-                ship.ApplyDamage(Damage);
+                ship.ApplyDamage(damage);
                 Destroy(gameObject);
             }
         }

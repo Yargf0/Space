@@ -8,6 +8,7 @@ public class PlayerWheapon : WheaponBasic
     private void Start()
     {
         playerWheapon = true;
+        base.Start();
     }
     private void FixedUpdate()
     {

@@ -33,7 +33,7 @@ public class EnemyAi : EnemyBasic
             return;
         if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) < enemy.RadiusOfDetection)
         {
-            if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) <= enemy.AttackRadius)
+            if (Vector3.Distance(transform.position, PlayerController.Instance.transform.position) <= enemy.AttackRadius-1.5f)
             {
                 SetState("Fight");
             }

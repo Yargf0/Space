@@ -18,7 +18,7 @@ public class ChaserFight : BaseState
         {
             particle.Play();
         }
-        rb2D.AddForce(perpendicularDirection * Speed);
+        rb2D.AddForce(perpendicularDirection * Speed/2);
         Rotate(perpendicularDirection);
 
         rb2D.velocity = Vector3.ClampMagnitude(rb2D.velocity, Speed);
