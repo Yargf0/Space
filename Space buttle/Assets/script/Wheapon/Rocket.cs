@@ -9,16 +9,25 @@ public class Rocket : Bullet
     private float rotationSpeed;
     [SerializeField] private float boomRadius;
 
+    private void Awake()
+    {
+        rb2D = gameObject.GetComponent<Rigidbody2D>();
+    }
 
     // Start is called before the first frame update
-    public override void Activate()
+    public override void Init(Wheapon wheapon, bool isPlayerBullet)
     {
-        rb2D=gameObject.GetComponent<Rigidbody2D>();
-
         engineParticle.Play();       
-        damage = wheapon.Damage;
-        speed = wheapon.BulletSpeed ;
-        rotationSpeed = wheapon.RotationSpeed;
+
+        Wheapon = wheapon;
+
+        damage = Wheapon.Damage;
+        speed = Wheapon.BulletSpeed;
+        rotationSpeed = Wheapon.RotationSpeed;
+
+        PlayerBullet = isPlayerBullet;
+
+        StartCoroutine(DestroyWithDelay(wheapon.BulletExistence));
     }
 
     // Update is called once per frame
@@ -35,13 +44,8 @@ public class Rocket : Bullet
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, (rotateZ + -90)), rotationSpeed * Time.deltaTime);
     }
-    public override IEnumerator WhaitDestroy(float time)
-    {
-        yield return new WaitForSeconds(time);
-        Expload();
 
-    }
-    private void Expload()
+    public override void Destroy()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(gameObject.transform.position, boomRadius);
         foreach (Collider2D collider in colliders)
@@ -60,7 +64,7 @@ public class Rocket : Bullet
         {
             if (ship.Player)
             {
-                Expload();
+                Destroy();
             }
         }
     }

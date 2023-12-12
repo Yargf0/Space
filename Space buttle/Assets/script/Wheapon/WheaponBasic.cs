@@ -33,16 +33,10 @@ public class WheaponBasic : MonoBehaviour
         
             foreach (Transform barrol in spawnPpoint)
             {
-                GameObject spawned = Instantiate(wheapon.Bullet, barrol.transform.position, gameObject.transform.rotation);
-                if (spawned.GetComponent<Bullet>() != null)
-                {
-                    Bullet bullet = spawned.GetComponent<Bullet>();
-                    bullet.wheapon = wheapon;
-                    bullet.StartDestruction(wheapon.BulletExistence);
-                    bullet.PlayerBullet = playerWheapon;
-                    bullet.Activate();
-                }
-
+                
+                Bullet bullet = Instantiate(wheapon.Bullet, barrol.position, gameObject.transform.rotation);
+                bullet.Init(wheapon, playerWheapon);
+                Debug.Log(bullet);
             }
            
             StartCoroutine(Reload(wheapon.RateOfFire));           
