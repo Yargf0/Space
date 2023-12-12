@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class PlayerWheapon : WheaponBasic
 {
-    private void Start()
+    public override void Start()
     {
         playerWheapon = true;
         base.Start();

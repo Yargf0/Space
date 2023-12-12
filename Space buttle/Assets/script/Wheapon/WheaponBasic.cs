@@ -9,7 +9,7 @@ public class WheaponBasic : MonoBehaviour
     [SerializeField] protected bool playerWheapon=false;
     [SerializeField] private List<Transform> spawnPpoint;
 
-    public void Start()
+    public virtual void Start()
     {
         spawnPpoint = GetChilds();
     }
@@ -36,7 +36,6 @@ public class WheaponBasic : MonoBehaviour
                 GameObject spawned = Instantiate(wheapon.Bullet, barrol.transform.position, gameObject.transform.rotation);
                 if (spawned.GetComponent<Bullet>() != null)
                 {
-                    Debug.Log(wheapon.name);
                     Bullet bullet = spawned.GetComponent<Bullet>();
                     bullet.wheapon = wheapon;
                     bullet.StartDestruction(wheapon.BulletExistence);

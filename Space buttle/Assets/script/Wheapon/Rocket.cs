@@ -22,7 +22,7 @@ public class Rocket : Bullet
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (PlayerController.Instance == null)
             return;
@@ -60,13 +60,8 @@ public class Rocket : Bullet
         {
             if (ship.Player)
             {
-                Debug.Log("1");
                 Expload();
             }
         }
     }
-
-
-
-
 }

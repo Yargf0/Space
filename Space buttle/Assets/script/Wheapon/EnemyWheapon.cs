@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyWheapon : WheaponBasic
 {
-    private void Update()
+    private void FixedUpdate()
     {
         if (PlayerController.Instance == null)
             return;
