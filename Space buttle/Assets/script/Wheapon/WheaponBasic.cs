@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class WheaponBasic : MonoBehaviour
 {
-    public Wheapon wheapon;
+    [SerializeField] protected Wheapon wheapon;
     private bool reloadNow;
-    public bool playerWheapon=false;
+    [SerializeField] protected bool playerWheapon=false;
     //[SerializeField] private int rotateInt;
     [SerializeField] private GameObject spawnPpoint;
 
@@ -21,11 +21,14 @@ public class WheaponBasic : MonoBehaviour
         if (reloadNow!=true)
         {
             GameObject spawned= Instantiate(wheapon.Bullet, spawnPpoint.transform.position, gameObject.transform.rotation);
-            Bullet bullet = spawned.GetComponent<Bullet>();
-            bullet.StartDestruction(wheapon.BulletExistence);
-            bullet.Damage = wheapon.Damage;
-            bullet.BulletSpeed = wheapon.BulletSpeed;
-            bullet.PlayerBullet = playerWheapon;
+            if (spawned.GetComponent<Bullet>()!=null)
+            {
+                Bullet bullet = spawned.GetComponent<Bullet>();
+                bullet.StartDestruction(wheapon.BulletExistence);
+                bullet.Damage = wheapon.Damage;
+                bullet.BulletSpeed = wheapon.BulletSpeed;
+                bullet.PlayerBullet = playerWheapon;
+            }           
             StartCoroutine(Reload(wheapon.RateOfFire));           
         }
     }

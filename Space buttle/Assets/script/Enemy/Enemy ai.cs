@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 using Vector3 = UnityEngine.Vector3;
 
 public class EnemyAi : EnemyBasic
 {
-
     private Dictionary<string, BaseState> stateDictionary = new();
 
     [SerializeField] private BaseState Patrule;
     [SerializeField] private BaseState Chase;
     [SerializeField] private BaseState Fight;
-    [SerializeField] private ParticleSystem engineParticle;
-    [SerializeField] private Rigidbody2D rb2D;
+    [SerializeField] private List<ParticleSystem> engineParticle;
 
     private string currentState;
 
@@ -25,8 +22,10 @@ public class EnemyAi : EnemyBasic
         {
             baseState.Set(enemy, gameObject, engineParticle);
         }
-        rb2D = gameObject.GetComponent<Rigidbody2D>();
-        engineParticle.Pause();
+        foreach(ParticleSystem particle in engineParticle)
+        {
+            particle.Pause();
+        }       
     }
     public void FixedUpdate()
     {
@@ -47,11 +46,6 @@ public class EnemyAi : EnemyBasic
         {
             SetState("Patrule");
         }
-        if(rb2D.velocity.magnitude <= 0.8f)
-        {
-            engineParticle.Pause();
-        }
-
     }
     public void SetState(string state)
     {

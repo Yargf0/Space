@@ -14,10 +14,21 @@ public class ChaserFight : BaseState
         {
             perpendicularDirection = -perpendicularDirection;
         }
-        engineParticle.Play();
+        foreach (ParticleSystem particle in engineParticle)
+        {
+            particle.Play();
+        }
         rb2D.AddForce(perpendicularDirection * Speed);
         Rotate(perpendicularDirection);
 
         rb2D.velocity = Vector3.ClampMagnitude(rb2D.velocity, Speed);
+
+        if (rb2D.velocity.magnitude <= 0.8f)
+        {
+            foreach (ParticleSystem particle in engineParticle)
+            {
+                particle.Pause();
+            }
+        }
     }
 }

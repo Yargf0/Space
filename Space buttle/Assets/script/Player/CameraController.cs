@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) < tpDistance)
             newPosition = target.position;
         else
-            newPosition = Vector3.Lerp(transform.position, target.position, speed * Time.deltaTime);
+            newPosition = target.position;
 
         newPosition.z = zPosition;
         transform.position = newPosition;

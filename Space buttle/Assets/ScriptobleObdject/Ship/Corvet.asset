@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Carier
   hp: 120
-  speed: 150
+  speed: 300
   rotationSpeed: 50

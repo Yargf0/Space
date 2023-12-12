@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb901705f2359034ab51be2562da519e, type: 3}
   m_Name: Frigate
   m_EditorClassIdentifier: 
-  name: 
-  radiusOfDetection: 0
+  name: "\u041D\u0435\u0441\u043E\u043A\u0440\u0443\u0448\u0438\u043C\u044B\u0439"
+  hp: 400
+  speed: 70
+  rotationSpeed: 1
+  radiusOfDetection: 100
   attackRadius: 0
   wheapons: []

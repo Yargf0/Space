@@ -7,9 +7,12 @@ public class PlayerController : ShipBasic
 {
     public static PlayerController Instance { get; private set; }
     private Rigidbody2D rb2D;
-    public void Awake()
+    [SerializeField] private List<ParticleSystem> engineParticle;
+    public override void Awake()
     {
-        base.Awake();
+        Hp = Ship.Hp;
+        maxHp = Hp;
+
         Instance =this;
         Player = true;
         rb2D = gameObject.GetComponent<Rigidbody2D>();
@@ -31,6 +34,20 @@ public class PlayerController : ShipBasic
         if (Input.GetKey("d"))
         {
             rb2D.MoveRotation(rb2D.rotation - Ship.RotationSpeed * Time.fixedDeltaTime);
+        }
+        if (rb2D.velocity.magnitude <= 0.8f)
+        {
+            foreach (ParticleSystem particle in engineParticle)
+            {
+                particle.Pause();
+            }
+        }
+        else
+        {
+            foreach (ParticleSystem particle in engineParticle)
+            {
+                particle.Play();
+            }
         }
     }
 

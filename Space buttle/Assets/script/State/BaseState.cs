@@ -1,15 +1,19 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseState : MonoBehaviour
 {
-    [SerializeField] protected float Speed;
-    [SerializeField] protected float AttackRadius;
-    [SerializeField] protected Rigidbody2D rb2D;
-    [SerializeField] protected GameObject me;
-    [SerializeField] protected ParticleSystem engineParticle;
-    public void Set(Enemy enemy, GameObject gameObject, ParticleSystem engineParticle)
+    protected Enemy enemy;
+    protected float Speed;
+    protected float AttackRadius;
+    protected List<ParticleSystem> engineParticle;
+
+    protected Rigidbody2D rb2D;
+    protected GameObject me;
+
+    public void Set(Enemy enemy, GameObject gameObject, List<ParticleSystem> engineParticle)
     {
+        this.enemy = enemy;
         Speed = enemy.Speed;
         AttackRadius = enemy.AttackRadius;
         me = gameObject;
@@ -18,18 +22,21 @@ public class BaseState : MonoBehaviour
     }
     public virtual void Do()
     {
-        engineParticle.Play();
+        foreach (ParticleSystem particle in engineParticle)
+        {
+            particle.Play();
+        }
         Rotate(PlayerController.Instance.transform.position);
         rb2D.AddForce(me.transform.up * Speed * Time.deltaTime, ForceMode2D.Force);
     }
 
-    public void MoveTo(Vector3 position)
+    public virtual void MoveTo(Vector3 position)
     {        
         Rotate(position);
         rb2D.AddForce(me.transform.up * Speed * Time.deltaTime, ForceMode2D.Force);
     }
 
-    public void Rotate(Vector3 position)
+    public virtual void Rotate(Vector3 position)
     {
         Vector3 diference = position - me.transform.position;
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
