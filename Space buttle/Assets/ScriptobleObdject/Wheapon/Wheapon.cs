@@ -12,7 +12,7 @@ public class Wheapon : ScriptableObject
     [SerializeField] private float radiusOfFire;
     [SerializeField] private float bulletExistence;
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private Bullet bullet;
+    [SerializeField] private GameObject bullet;
     public string Name
     {
         get
@@ -62,7 +62,7 @@ public class Wheapon : ScriptableObject
             return bulletSpeed;
         }
     }
-    public Bullet Bullet
+    public GameObject Bullet
     {
         get
         {

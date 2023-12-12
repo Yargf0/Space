@@ -18,5 +18,5 @@ MonoBehaviour:
   rateOfFire: 2
   radiusOfFire: 10
   bulletExistence: 3
-  bulletSpeed: 800
+  bulletSpeed: 15
   bullet: {fileID: 4952842104891237032, guid: 7ec104a80f6ae874386b9214615df3d5, type: 3}

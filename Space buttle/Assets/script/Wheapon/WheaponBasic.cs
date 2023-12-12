@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WheaponBasic : MonoBehaviour
@@ -33,10 +34,12 @@ public class WheaponBasic : MonoBehaviour
         
             foreach (Transform barrol in spawnPpoint)
             {
-                
-                Bullet bullet = Instantiate(wheapon.Bullet, barrol.position, gameObject.transform.rotation);
-                bullet.Init(wheapon, playerWheapon);
-                Debug.Log(bullet);
+                GameObject spawned = Instantiate(wheapon.Bullet, barrol.transform.position, gameObject.transform.rotation);
+                if (spawned.GetComponent<Bullet>() != null)
+                {                   
+                    Bullet bullet = spawned.GetComponent<Bullet>();
+                    bullet.Init(wheapon, playerWheapon);
+                }
             }
            
             StartCoroutine(Reload(wheapon.RateOfFire));           
