@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Corvet
   m_EditorClassIdentifier: 
   name: Carier
-  hp: 120
+  hp: 1200
   speed: 300
   rotationSpeed: 50

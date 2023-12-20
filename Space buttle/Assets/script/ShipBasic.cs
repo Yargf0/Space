@@ -7,7 +7,7 @@ public class ShipBasic : MonoBehaviour
     public bool Player=false;
     [HideInInspector]
     public float Hp;
-    [SerializeField] protected Image hpSprite;
+    [SerializeField] private Image hpSprite;
     protected float maxHp;
     public virtual void Awake()
     {       
